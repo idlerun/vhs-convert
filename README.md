@@ -1,19 +1,3 @@
----
-title: "VHS to iTunes Compatible MP4"
-tags: vhs mp4 ffmpeg itunes
----
-
-VHS tapes are a dying standard. The physical tapes are degrading over time and will only get worse quality over the coming years. The players themselves are also getting more rare and less compatible with modern digital TVs.
-
-Everyone with old family videos on VHS knows that they should be saving them before it's too late, but it's very easy to procrastinate.
-
-ENDOFSUMMARY
-
-VHS to DVD conversion is one option. There are even all-in-one units that make the whole process easy. Unfortunately this solution is hardly ideal: the DVDs can be lost or damaged; they, too, will degrade in as little as [2 years](https://www.storagecraft.com/blog/data-storage-lifespan/); and, since DVDs use out-dated MPEG-2 codecs, significant quality is lost in the conversion process.
-
-The best modern-day solution is to copy the tapes onto the computer. In this way we can keep as much quality as possible and have much more flexibility on how to backup the videos.
-My personal preference is to backup all of my videos to a Google Drive folder, since this lets me watch them anywhere, and I can rest assured that they aren't going to get lost, even if my house burned down.
-
 Outlined here is the method I used for converting my VHS tapes to H264 files. To leave myself extra options open, I encoded them in a format that is also fully compatible with iTunes and most Apple devices.
 
 ## Setup
