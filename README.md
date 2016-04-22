@@ -72,7 +72,24 @@ For this USB device, the video device is *both* a video and audio device. This c
 Here is the command used for converting the video
 
 ```bash
-ffmpeg -framerate 25 -vsync 1 -video_size 720x576 -f dshow -rtbufsize 250000k -crossbar_video_input_pin_number 0 -crossbar_audio_input_pin_number 2 -i video="Conexant Polaris Video Capture":audio="Conexant Polaris Video Capture" -t 4:10:00 -vf "fps=25,yadif=0:0:0,crop=w=702:h=576,hqdn3d=6:4:14:10,scale=640x480" -c:v libx264 -preset medium -tune film -profile:v main -level 3.1 -pix_fmt yuv420p -crf 25 -maxrate 1750k -bufsize 3500k -af "aresample=async=1000,highpass=200,lowpass=3500" -c:a aac -b:a 96k -strict -2 -r 25 out.m4v
+ffmpeg -framerate 25 -vsync 1 -video_size 720x576 -f dshow -rtbufsize 250000k \
+  -crossbar_video_input_pin_number 0 -crossbar_audio_input_pin_number 2 \
+  -i video="Conexant Polaris Video Capture":audio="Conexant Polaris Video Capture" \
+  -t 4:10:00 -vf "fps=25,yadif=0:0:0,crop=w=702:h=576,hqdn3d=6:4:14:10,scale=640x480" \
+  -c:v libx264 -preset medium -tune film -profile:v main -level 3.1 -pix_fmt yuv420p \
+  -crf 25 -maxrate 1750k -bufsize 3500k -af "aresample=async=1000,highpass=200,lowpass=3500" \
+  -c:a aac -b:a 96k -strict -2 -r 25 out.m4v
+```
+
+## Python Wrapper
+To simplify usage, here is a simple Python wrapper for the ffmpeg capture command above. Modify it to customize the defaults to your preference or use command line arguments to configure.
+
+[capture.py](https://github.com/idlerun/vhs-convert/blob/master/capture.py)
+
+Usage:
+
+```bash
+./capture.py --out test.m4v
 ```
 
 ### Command Components
@@ -138,23 +155,14 @@ Replace `out.m4v` with
 This will simultaneously write to out.m4v and send all video over UDP to port 10001. Then we can monitor the video output on that port with ffplay (which comes with ffmpeg)
 
 ```bash
-ffplay -an -fast -framedrop -noinfbuf -vf scale=w=in_w/2:h=in_h/2 -loglevel panic -i udp://localhost:10001?listen
+ffplay -an -fast -framedrop -noinfbuf -vf scale=w=in_w/2:h=in_h/2 -loglevel panic \
+  -i udp://localhost:10001?listen
 ```
 
 Note that `-an` disables playing out audio, and the input is scaled down by half for display.
 
 **DANGER**
 Unlike the normal out.m4v output, this command will *NOT* prompt before overwriting an output file. Extra care must be taken to avoid overwriting your output accidentally.
-
-
-### Python Wrapper
-Here is a simple Python wrapper for the ffmpeg capture command above. This simplifies usage by configuring all of the defaults and allowing arguments to configure other options
-
-<%= render_code("capture.py", "python", {:range => [1,10]}) %>
-
-```bash
-./capture.py --out test.m4v
-```
 
 ### Trimming
 If there is excessive content after the recorded video ends, it can be safely trimmed off without any need to re-encode the video.
