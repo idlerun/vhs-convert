@@ -1,6 +1,7 @@
 ---
 title: "VHS to iTunes Compatible MP4"
 tags: vhs mp4 ffmpeg itunes
+date: 2016-01-17
 ---
 
 Outlined here is the method I used for converting my VHS tapes to H264 files. To leave myself extra options open, I encoded them in a format that is also fully compatible with iTunes and most Apple devices.
